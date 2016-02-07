@@ -8,3 +8,7 @@ Once a game has been created, the clue-givers navigate their browsers to
 or 
 `http://host:4000/game/\<game-id\>/w`
 for their respective teams (b for black, w for white).
+
+## Screenshots
+
+![starting screen](http://i.imgur.com/BqttcCT.png?1)
