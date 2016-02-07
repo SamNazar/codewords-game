@@ -1,0 +1,228 @@
+/**
+ * Global styles, fonts, and other utility classes
+ */
+
+body {
+	/* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#a90329+0,8f0222+44,6d0019+100;Brown+Red+3D */
+	background: #a90329; /* Old browsers */
+	background: -moz-radial-gradient(center, ellipse cover,  #a90329 0%, #8f0222 44%, #6d0019 100%); /* FF3.6-15 */
+	background: -webkit-radial-gradient(center, ellipse cover,  #a90329 0%,#8f0222 44%,#6d0019 100%); /* Chrome10-25,Safari5.1-6 */
+	background: radial-gradient(ellipse at center,  #a90329 0%,#8f0222 44%,#6d0019 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#a90329', endColorstr='#6d0019',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+}
+
+body > .vertical-center
+{
+	min-height: 100%;  /* Fallback for browsers do NOT support vh unit */
+	min-height: 100vh; /* These two lines are counted as one :-)       */
+}
+
+.vertical-center {
+	display: flex;
+	align-items: center;
+	flex-direction: column;
+}
+
+.horizontal-center {
+	justify-content: center;
+}
+
+/**
+ * Home Page
+ */
+
+.homepage h1 {
+    color: #fff;
+    font-weight: bold;
+    margin: 0 0 2rem;
+    font-size: 5rem;
+}
+
+.homepage h1 small {
+	color: #ccc;
+}
+
+.homepage .panel {
+	width: 100%;
+	max-width: 640px;
+	text-align: center;
+	padding: 1rem;
+
+	background-color: beige;
+
+	border-radius: 2em;
+	box-shadow: .25rem .52rem 1rem #444;
+}
+
+.homepage .panel-body {
+	border-radius: 2em;
+	border: 2px groove brown;
+	height: 250px;
+}
+
+.homepage form
+{
+	margin: 0;
+}
+
+/**
+ * Play Screen
+ */
+
+.message {
+	display: inline-flex;
+	flex: 3;
+	text-align: center;
+	justify-content: center;
+	align-items:center;
+	height: 100%;
+}
+
+#whosturn {
+	height: 100%;
+	flex: 1;
+	display: flex;
+	flex-direction: column;
+	text-align: center;
+	justify-content: center;
+	align-items:center;
+	align-content: stretch;
+}
+
+.header > h2 {
+	flex: 1;
+	display: flex;
+	justify-content: center;
+}
+
+.header > .black, .header > .finished_black_win, .scores > .black {
+	background-color: black;
+	color: floralwhite;
+}
+
+.header > .white, .header > .finished_white_win, .scores > .white {
+	background-color: floralwhite;
+}
+
+#whosturn input {
+	border: 0;
+	width: 100%;
+	height: 50%;
+}
+
+.scores {
+	height: 100%;
+	flex: 1;
+	display: inline-flex;
+	text-align: center;
+	justify-content: space-around;
+	align-items: center;
+	background: #D1CAA1;
+}
+
+.scores > span {
+	align-items: center;
+	justify-content: center;
+	padding: 4pt;
+}
+
+.words {
+	width:100%;
+	height: 90%;
+	padding: 0pt;
+	margin: 0pt;
+	background-color: lightblue;
+	justify-content: space-around;
+}
+
+.word-list {
+	width: 100%;
+	height: 100%;
+	margin: 0pt;
+	display: flex;
+	padding: 0px;
+	flex-wrap: wrap;
+	margin: 0pt;
+	background-color: #383B53;
+}
+
+.word-list > li {
+	font-size: larger;
+	flex: 1 0 16%;
+	display: inline-flex;
+	border:0.2em solid #32213A;
+	margin: 4pt;
+	text-align: center;
+	justify-content: center;
+	align-items: center;
+}
+
+.word-list > .unknown {
+	background-color: #D1CAA1;
+	cursor: pointer;
+}
+
+.word-list > .black {
+	background-color: black;
+	color: dimgray;
+}
+
+.word-list > .white {
+	background-color: floralwhite;
+	color: gray;
+}
+
+.word-list > .neutral {
+	background-color: dimgray;
+	color: gray;
+}
+
+.word-list > .killer {
+	color: black;
+	background-color: red;
+}
+
+.word-list a {
+  /* This flexbox code stretches the link's clickable 
+   * area to fit its parent block. */
+  display:        flex;
+  flex-grow:      1;
+  flex-shrink:    1;
+  justify-content: center;
+}
+
+.wordlists {
+	width: 90%;
+	font-family: serif;
+	font-size: large;
+	background: #D4D6B9;
+}
+
+.wordlists > #killerword {
+	background-color: darkred;
+	color: floralwhite;
+}
+
+.wordlists div {
+	margin: 0.5em;
+	padding: 1em;
+}
+
+.wordlists > .black {
+	background-color: black;
+	color: floralwhite;
+}
+
+.wordlists > .white {
+	background-color: floralwhite;
+	color: black;
+}
+
+.revealedword {
+	text-decoration: line-through;
+}
+
+.content {
+	display: flex;
+	justify-content: center;
+}
