@@ -7,6 +7,7 @@ port = 4000
 db_url = ''
 
 # file from which to read words
+#words_file = 'boardgamewords.txt'
 words_file = 'samplewords.txt'
 
 debug = True

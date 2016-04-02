@@ -5,9 +5,9 @@ import string
 
 from config import settings
 
-# load words info
-all_words = [line.rstrip('\n').upper() for line in open(settings.words_file)]
-
+# load words info and close file
+with open(settings.words_file) as wordsfile:
+    all_words = [line.rstrip('\n').upper() for line in wordsfile]
 
 # define a game class
 class Game:

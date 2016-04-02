@@ -1,5 +1,5 @@
 # codewords-game
-A local multiplayer hidden word game made with Python, Bottle, and Knockout.js
+A local multiplayer hidden word game made with Python3, Bottle, and Knockout.js
 
 By default, running codewords.py will start a local server on port 4000.  You can change the settings in `config/settings.py`.
 

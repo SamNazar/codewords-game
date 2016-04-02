@@ -129,5 +129,6 @@ def makeGuess(gameid='TEST', word='pass'):
 # create a test game, this won't collide with real games since they don't use capital letters in their IDs
 games["TEST"] = Game("TEST")
 
-# must put 0.0.0.0 instead of localhost to be able to serve to the local network
-run(host=settings.host, port=settings.port, debug=settings.debug, reloader=settings.reloader)
+if __name__ == '__main__':
+    # must put 0.0.0.0 instead of localhost to be able to serve to the local network
+    run(host=settings.host, port=settings.port, debug=settings.debug, reloader=settings.reloader)

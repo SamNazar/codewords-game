@@ -92,10 +92,11 @@ body {
 }
 
 .word-list > li {
-    font-size: larger;
+    font-size: x-large;
     flex: 1 0 16%;
     display: inline-flex;
-    border:0.2em solid #32213A;
+    border: 0.1em solid #32213A;
+	border-radius: 1em;
     margin: 4pt;
     text-align: center;
     justify-content: center;
