@@ -1,4 +1,9 @@
-from bottle import route, run, static_file, template
+from bottle import route, run, request, static_file, template, abort, Bottle
+
+import eventlet
+from eventlet.green import socket
+
+from time import sleep
 import random
 import string
 
@@ -10,6 +15,7 @@ from config import settings
 
 from game import Game
 
+app = application = Bottle()
 
 # short ID generator
 # NOTE: This method of randomization is NOT cryptographically secure.  That's not a problem in this case.
@@ -19,38 +25,51 @@ def id_generator(size=4, chars=string.ascii_lowercase + string.digits):
 # games running
 games = {}
 
+@app.route('/socket')
+def handle_websocket():
+    wsock = request.environ.get('wsgi.websocket')
+    if not wsock:
+        print("NOT WEBSOCKET")
+        abort(400, 'Expected WebSocket request.')
 
-@route('/static/<filepath:path>')
+    while True:
+        try:
+            message = wsock.receive()
+            wsock.send(("Your message was: %r" % message).encode())
+        except WebSocketError:
+            break
+
+
+@app.route('/static/<filepath:path>')
 def server_static(filepath):
     return static_file(filepath, root='static/')
-
-
-@route('/')
+    
+@app.route('/')
 def serveHomepage():
     return template('homepage')
 
 
-@route('/game', method='GET')
+@app.route('/game', method='GET')
 def makeGameMessage():
     return "Please create a new game"
 
 
-@route('/game/<gameid>', method='GET')
+@app.route('/game/<gameid>', method='GET')
 def serveGame(gameid='TEST'):
     return template('game', gameid=gameid)
 
 
-@route('/game/<gameid>/<color>', method='GET')
+@app.route('/game/<gameid>/<color>', method='GET')
 def serveClueGiverPage(gameid='TEST', color='w'):
     if color in ['w', 'W', 'b', 'B']:
         return template('cluegiver', gameid=gameid, team=color)
     else:
-        return {'message': invalid}
+        return {'message': 'invalid team color, use b or w'}
 
 
 # ### API ROUTES ####
 
-@route('/api/game', method='POST')
+@app.route('/api/game', method='POST')
 def createGame():
     # create a new game
     global games
@@ -66,7 +85,7 @@ def createGame():
     return {'message': "Created game " + gameId + ".", 'gameid': str(gameId)}
 
 
-@route('/api/game/<gameid>', method='GET')
+@app.route('/api/game/<gameid>', method='GET')
 def displayGame(gameid='TEST'):
     if gameid in games:
         game = games[gameid]
@@ -82,7 +101,7 @@ def displayGame(gameid='TEST'):
         return {'message': 'invalid game-id'}
 
 
-@route('/api/game/<gameid>/<color>', method='GET')
+@app.route('/api/game/<gameid>/<color>', method='GET')
 def displayGame(gameid='TEST', color='w'):
     # for the clue givers: give a list of each word and its color and whether or not it's been revealed
     if gameid in games:
@@ -96,7 +115,7 @@ def displayGame(gameid='TEST', color='w'):
         return {'message': 'invalid game-id'}
 
 
-@route('/api/game/<gameid>/guess/<word>', method='POST')
+@app.route('/api/game/<gameid>/guess/<word>', method='POST')
 def makeGuess(gameid='TEST', word='pass'):
     # first make sure the word exists and is in the given game
     message = ""
@@ -131,4 +150,4 @@ games["TEST"] = Game("TEST")
 
 if __name__ == '__main__':
     # must put 0.0.0.0 instead of localhost to be able to serve to the local network
-    run(host=settings.host, port=settings.port, debug=settings.debug, reloader=settings.reloader)
+    app.run(host=settings.host, port=settings.port, debug=settings.debug, reloader=settings.reloader, server='eventlet')
