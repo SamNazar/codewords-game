@@ -1,2 +1,2 @@
-bottle==0.12.9
+bottle==0.12.20
 greenlet==0.4.9
